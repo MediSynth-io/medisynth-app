@@ -1,0 +1,18 @@
+--- a/packages/react/src/SearchControl/SearchControl.tsx
++++ b/packages/react/src/SearchControl/SearchControl.tsx
+@@ -263,13 +263,8 @@ export function SearchControl(props: SearchControlProps): JSX.Element | null {
+     );
+   }
+ 
+-  if (!isDataTypeLoaded(memoizedSearch.resourceType)) {
+-    return (
+-      <Center style={{ width: '100%', height: '100%' }}>
+-        <Loader />
+-      </Center>
+-    );
+-  }
++  // Schema loading handled by loadResults() - removed redundant check
++  // that caused infinite loader on custom resource types
+ 
+   const checkboxColumn = props.checkboxesEnabled;
+   const fields = getFieldDefinitions(memoizedSearch);
