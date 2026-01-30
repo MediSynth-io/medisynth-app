@@ -7,8 +7,11 @@ RUN apk add --no-cache git
 RUN git clone --depth 1 --branch v5.0.13 https://github.com/medplum/medplum.git .
 
 # Fix: Remove isDataTypeLoaded check that causes infinite loader
+# Also remove now-unused imports to satisfy TypeScript
 RUN sed -i '/if (!isDataTypeLoaded(memoizedSearch.resourceType))/,/^  }/d' \
-    packages/react/src/SearchControl/SearchControl.tsx
+    packages/react/src/SearchControl/SearchControl.tsx && \
+    sed -i 's/  Loader,//' packages/react/src/SearchControl/SearchControl.tsx && \
+    sed -i 's/  isDataTypeLoaded,//' packages/react/src/SearchControl/SearchControl.tsx
 
 # Install deps
 RUN npm ci --ignore-scripts
